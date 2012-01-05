@@ -33,39 +33,31 @@ HOW TO RUN
 
 
 SAMPLE OUTPUT (GE from 1990/01/01 to 2011/12/31)
-Scenario: START-INVESTMENT          Strategy: IN-THE-BANK               Result:   12451.87
-Scenario: START-INVESTMENT          Strategy: BUY-WHEN-POSSIBLE         Result:   48028.80
-Scenario: START-INVESTMENT          Strategy: RANDOM-ADVICE             Result:   38120.87
-Scenario: START-INVESTMENT          Strategy: THIRTY-PERCENT-RULE       Result:   24711.68
-Scenario: START-INVESTMENT          Strategy: AUTOMATIC-INVESTMENT      Result:   25328.41
+Scenario: AIM-SCENARIO          Strategy: NIL                 Result:   48014.12
 
-Scenario: MONTHLY-INVESTMENT        Strategy: IN-THE-BANK               Result:  600567.60
-Scenario: MONTHLY-INVESTMENT        Strategy: BUY-WHEN-POSSIBLE         Result:  963009.80
-Scenario: MONTHLY-INVESTMENT        Strategy: RANDOM-ADVICE             Result:  803329.90
-Scenario: MONTHLY-INVESTMENT        Strategy: THIRTY-PERCENT-RULE       Result:  700835.20
-Scenario: MONTHLY-INVESTMENT        Strategy: AUTOMATIC-INVESTMENT      Result:  579217.10
+Scenario: START-INVESTMENT      Strategy: IN-THE-BANK         Result:   12451.87
+Scenario: START-INVESTMENT      Strategy: BUY-WHEN-POSSIBLE   Result:   48028.80
+Scenario: START-INVESTMENT      Strategy: THIRTY-PERCENT-RULE Result:   24711.68
 
-Scenario: MONTHLY-INVEST-ADVICE     Strategy: IN-THE-BANK               Result:  600567.60
-Scenario: MONTHLY-INVEST-ADVICE     Strategy: BUY-WHEN-POSSIBLE         Result:  956457.90
-Scenario: MONTHLY-INVEST-ADVICE     Strategy: RANDOM-ADVICE             Result:  891539.80
-Scenario: MONTHLY-INVEST-ADVICE     Strategy: THIRTY-PERCENT-RULE       Result:  561717.10
-Scenario: MONTHLY-INVEST-ADVICE     Strategy: AUTOMATIC-INVESTMENT      Result:  709038.20
+Scenario: MONTHLY-INVESTMENT    Strategy: IN-THE-BANK         Result:  600567.60
+Scenario: MONTHLY-INVESTMENT    Strategy: BUY-WHEN-POSSIBLE   Result:  963009.80
+Scenario: MONTHLY-INVESTMENT    Strategy: THIRTY-PERCENT-RULE Result:  700835.20
 
-Scenario: QUARTERLY-INVESTMENT      Strategy: IN-THE-BANK               Result:  596078.94
-Scenario: QUARTERLY-INVESTMENT      Strategy: BUY-WHEN-POSSIBLE         Result:  946115.44
-Scenario: QUARTERLY-INVESTMENT      Strategy: RANDOM-ADVICE             Result:  866814.94
-Scenario: QUARTERLY-INVESTMENT      Strategy: THIRTY-PERCENT-RULE       Result:  688940.90
-Scenario: QUARTERLY-INVESTMENT      Strategy: AUTOMATIC-INVESTMENT      Result:  572229.94
+Scenario: MONTHLY-INVEST-ADVICE Strategy: IN-THE-BANK         Result:  600567.60
+Scenario: MONTHLY-INVEST-ADVICE Strategy: BUY-WHEN-POSSIBLE   Result:  956457.90
+Scenario: MONTHLY-INVEST-ADVICE Strategy: THIRTY-PERCENT-RULE Result:  561717.10
 
-Scenario: YEARLY-INVESTMENT         Strategy: IN-THE-BANK               Result:  575864.56
-Scenario: YEARLY-INVESTMENT         Strategy: BUY-WHEN-POSSIBLE         Result:  869020.30
-Scenario: YEARLY-INVESTMENT         Strategy: RANDOM-ADVICE             Result:  814488.06
-Scenario: YEARLY-INVESTMENT         Strategy: THIRTY-PERCENT-RULE       Result:  659378.60
-Scenario: YEARLY-INVESTMENT         Strategy: AUTOMATIC-INVESTMENT      Result:  550617.30
+Scenario: QUARTERLY-INVESTMENT  Strategy: IN-THE-BANK         Result:  596078.94
+Scenario: QUARTERLY-INVESTMENT  Strategy: BUY-WHEN-POSSIBLE   Result:  946115.44
+Scenario: QUARTERLY-INVESTMENT  Strategy: THIRTY-PERCENT-RULE Result:  688940.90
 
-Scenario: MONTHLY-INVEST-RULE       Strategy: MONEYPAPER-INVEST         Result:  939748.60
-Scenario: MONTHLY-INVEST-RULE       Strategy: DRIP-INVEST-CALC          Result:  989538.90
-Scenario: MONTHLY-INVEST-RULE       Strategy: TWINVEST                  Result:  936773.80
+Scenario: YEARLY-INVESTMENT     Strategy: IN-THE-BANK         Result:  575864.56
+Scenario: YEARLY-INVESTMENT     Strategy: BUY-WHEN-POSSIBLE   Result:  869020.30
+Scenario: YEARLY-INVESTMENT     Strategy: THIRTY-PERCENT-RULE Result:  659378.60
+
+Scenario: MONTHLY-INVEST-RULE   Strategy: MONEYPAPER-INVEST   Result:  939748.60
+Scenario: MONTHLY-INVEST-RULE   Strategy: DRIP-INVEST-CALC    Result:  989538.90
+Scenario: MONTHLY-INVEST-RULE   Strategy: TWINVEST            Result:  936773.80
 
 
 cl-stocks is licensed under the ISC licence; see LICENSE.txt for details.
