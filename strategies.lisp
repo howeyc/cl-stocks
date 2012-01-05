@@ -10,15 +10,6 @@
  (declare (ignore stock-price))
  (values "Buy" 1))
 
-(defun random-advice (stock-price)
-  (declare (ignore stock-price))
-  (values
-    (case (random 3)
-      (0 "Buy")
-      (1 "Sell")
-      (2 "Hold"))
-    1))
-
 (defun thirty-percent-rule (stock-price)
   (let* ((diff (- (stock-price-52wh stock-price) (stock-price-52wl stock-price)))
          (thirty-of-diff (* (/ 30 100) diff))
@@ -47,36 +38,3 @@
       (if (zerop code)
         (setf code (* 200000000 (/ 3 4) (stock-price-close stock-price))))
       (/ code (stock-price-close stock-price) 200000000))))
-
-;;; AIM
-(defun get-aim-fn()
-  (let ((quantity 0) (stock-value 0) (cash 0) (safe 0) (order-value 0) (portfolio-control 0) (advice 0) (buy-factor 0))
-    (defun automatic-investment (stock-price)
-      (if (zerop portfolio-control)
-        (progn
-          (setf portfolio-control 500000000 
-                 stock-value 500000000 
-                 quantity (/ stock-value (stock-price-close stock-price))
-                 cash 500000000)
-          (values "Buy" (/ 1 2)))
-        (progn
-          (setf stock-value (* quantity (stock-price-close stock-price))
-                 advice (- portfolio-control stock-value)
-                 safe (* (/ 1 10) stock-value)
-                 order-value (- (abs advice) safe))
-          (if (> order-value (* 50 (stock-price-close stock-price)))
-            (if (> advice 0)
-              (progn
-                (when (< cash order-value) (setf order-value cash)) 
-                (unless (zerop cash) (setf buy-factor (/ order-value cash)))
-                (incf portfolio-control (/ order-value 2))
-                (decf cash order-value)
-                (incf quantity (/ order-value (stock-price-close stock-price)))
-                (values "Buy" buy-factor))
-              (progn
-                (decf quantity (/ order-value (stock-price-close stock-price)))
-                (incf cash order-value)
-                (values "Sell" (/ order-value stock-value))))
-            (values "Hold" 0)))))))
-
- 

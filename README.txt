@@ -1,6 +1,8 @@
 cl-stocks is a project to test various stock purchasing strategies.
 
 SCENARIOS
+* Automatic-Investment  : Start with 10K, Automatic Investment Management
+
 * Start-Investment      : Start with 10K, that's all you have to work with.
 * Monthly-Investment    : Start with 10K, invest 2K monthly. Watch constantly.
 * Monthly-Invest-Advice : Start with 10K, invest 2K monthly. Only make changes
@@ -13,15 +15,11 @@ STRATEGIES
 Buy And Sell (All or None)
 * In-The-Bank           : Screw the market, go banking savings account.
 * Buy-When-Possible     : Buy whenever you get the money.
-* Random-Advice         : Typical stock advisor / home investor.
 * Thirty-Percent-Rule   : When a stock dips below the 30% mark of the range
                           between it's 52-week high and 52-week low, BUY.
                           When a stock goes above the 60% mark of the range
                           between it's 52-week high and 52-week low, SELL.
                           Only sell at a price higher than purchase price.
-
-Buy And Sell (Quantity Rule-Based)
-* Automatic-Investment  : Automatic Investment Management (**Incomplete**)
 
 Monthly Rule-Based Dollar Cost Averaging Strategies
 * Moneypaper-Invest     : Invest% formula from Moneypaper (52 week high/low).
