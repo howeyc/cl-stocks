@@ -14,5 +14,8 @@
   (run-test-ge)
   (run-test-k))
 
+(defun run-yahoo ()
+ (cl-stocks:run-yahoo-data "GE" '(1 1 1990) '(1 1 2012) t))
+
 (defun reload-tests ()
  (load "testing.lisp"))
