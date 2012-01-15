@@ -36,5 +36,5 @@
   (let ((code 0))
     (defun twinvest (stock-price)
       (if (zerop code)
-        (setf code (* 200000000 (/ 3 4) (stock-price-close stock-price))))
-      (/ code (stock-price-close stock-price) 200000000))))
+        (setf code (* 2000 (/ 3 4) (stock-price-close stock-price))))
+      (/ code (stock-price-close stock-price) 2000))))

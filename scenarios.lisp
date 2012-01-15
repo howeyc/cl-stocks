@@ -88,7 +88,7 @@
     (decode-universal-time current-date)
     (declare (ignore secs hour minute month year))
     (if (equal 1 day)
-      (incf (portfolio-cash portfolio) 200000000)))
+      (incf (portfolio-cash portfolio) 2000)))
   (follow-advice portfolio current-date stock-price strategy-fn))
 
 (defun monthly-invest-advice (portfolio current-date stock-price strategy-fn)
@@ -99,7 +99,7 @@
     (declare (ignore secs hour minute month year))
     (if (equal 1 day)
       (progn
-        (incf (portfolio-cash portfolio) 200000000)
+        (incf (portfolio-cash portfolio) 2000)
         (follow-advice portfolio current-date stock-price strategy-fn)))))
 
 (defun monthly-invest-rule (portfolio current-date stock-price strategy-fn)
@@ -110,7 +110,7 @@
     (declare (ignore secs hour minute month year))
     (if (equal 1 day)
       (progn
-        (incf (portfolio-cash portfolio) 200000000)
+        (incf (portfolio-cash portfolio) 2000)
         (perform-buy portfolio stock-price (min (portfolio-cash portfolio) (* (funcall strategy-fn stock-price) (portfolio-cash portfolio))))))))
 
 (defun quarterly-investment (portfolio current-date stock-price strategy-fn)
@@ -123,7 +123,7 @@
             (and (equal 1 day) (equal 4 month))
             (and (equal 1 day) (equal 7 month))
             (and (equal 1 day) (equal 10 month)))
-      (incf (portfolio-cash portfolio) 600000000)))
+      (incf (portfolio-cash portfolio) 6000)))
   (follow-advice portfolio current-date stock-price strategy-fn))
 
 (defun yearly-investment (portfolio current-date stock-price strategy-fn)
@@ -133,7 +133,7 @@
     (decode-universal-time current-date)
     (declare (ignore secs hour minute year))
     (if (and (equal 1 day) (equal 1 month))
-      (incf (portfolio-cash portfolio) 2400000000)))
+      (incf (portfolio-cash portfolio) 24000)))
   (follow-advice portfolio current-date stock-price strategy-fn))
 
 (defun get-aim-scenario ()
@@ -141,7 +141,7 @@
     (defun aim-scenario (portfolio current-date stock-price strategy-fn)
       (declare (ignore strategy-fn))
       (if (zerop portfolio-control)
-        (setf portfolio-control 500000000))
+        (setf portfolio-control 5000))
       (multiple-value-bind
         (secs hour minute day month year)
         (decode-universal-time current-date)

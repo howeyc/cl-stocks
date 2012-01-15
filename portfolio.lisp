@@ -5,7 +5,7 @@
 (defclass portfolio ()
   ((cash :accessor portfolio-cash
          :initarg :cash
-         :initform 1000000000)
+         :initform 10000)
    (quantity :accessor portfolio-quantity
              :initarg :quantity
              :initform 0)
