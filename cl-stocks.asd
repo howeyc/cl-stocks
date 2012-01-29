@@ -9,7 +9,7 @@
                (:file "date")
                (:file "sma")
                (:file "transaction")
-               (:file "portfolio")
+               (:file "stock-position")
                (:file "stock-price")
                (:file "parse-fns")
                (:file "get-stock-info")
