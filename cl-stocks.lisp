@@ -11,11 +11,8 @@
             (setf scenario-result (run-scenario-with-result stock-prices dividends splits scenario-fn nil interest-fn))
             (format out-stream "Scenario: ~21A Strategy: ~19A Result: ~10,2F~%" scenario-fn nil scenario-result))
       (format out-stream "~%")
-      (loop for scenario-fn in '(start-investment monthly-investment monthly-invest-advice quarterly-investment yearly-investment) do 
-            (loop for strategy-fn in '(in-the-bank buy-when-possible thirty-percent-rule) do
+      (loop for scenario-fn in '(start-investment monthly-investment quarterly-investment yearly-investment) do 
+            (loop for strategy-fn in (append '(in-the-bank buy-when-possible thirty-percent-rule moneypaper-invest drip-invest-calc) (list (get-twinvest-fn))) do
                   (setf scenario-result (run-scenario-with-result stock-prices dividends splits scenario-fn strategy-fn interest-fn))
                   (format out-stream "Scenario: ~21A Strategy: ~19A Result: ~10,2F~%" scenario-fn strategy-fn scenario-result))
-            (format out-stream "~%"))
-      (loop for monthly-invest-rule-fn in (append '(moneypaper-invest drip-invest-calc) (list (get-twinvest-fn))) do 
-            (setf scenario-result (run-scenario-with-result stock-prices dividends splits 'monthly-invest-rule monthly-invest-rule-fn interest-fn))
-            (format out-stream "Scenario: ~21A Strategy: ~19A Result: ~10,2F~%" 'monthly-invest-rule monthly-invest-rule-fn scenario-result)))))
+            (format out-stream "~%")))))

@@ -44,7 +44,7 @@
         :initform 0)))
 
 (defun add-52w-numbers (stock-prices)
- (let ((queue nil))
+ (let ((queue (list (make-instance 'stock-price))))
   (dolist (stock-price stock-prices stock-prices)
    (if (>= (length queue) 52)
     (pop queue))

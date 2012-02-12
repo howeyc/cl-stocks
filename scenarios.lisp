@@ -35,7 +35,7 @@
   (multiple-value-bind 
    (advice-string advice-factor force)
    (funcall strategy-fn stock-price)
-   (when (string-equal "Buy" advice-string) (perform-buy stock-position stock-price (* advice-factor (stock-position-cash stock-position))))
+   (when (string-equal "Buy" advice-string) (perform-buy stock-position stock-price (min (stock-position-cash stock-position) (* advice-factor (stock-position-cash stock-position)))))
    (when (string-equal "Sell" advice-string) (perform-sell stock-position stock-price force (* (truncate (* advice-factor (stock-position-quantity stock-position)) 50) 50))))))
 
 (defun collect-div (stock-position dividend)
@@ -82,57 +82,35 @@
  (follow-advice stock-position current-date stock-price strategy-fn))
 
 (defun monthly-investment (stock-position current-date stock-price strategy-fn)
- "Start with 10K, and invest 2K each month."
+  "Start with 10K, and invest 2K each month."
   (multiple-value-bind
     (secs hour minute day month year)
     (decode-universal-time current-date)
     (declare (ignore secs hour minute month year))
-    (if (equal 1 day)
+    (when (equal 1 day)
       (incf (stock-position-cash stock-position) 2000)))
   (follow-advice stock-position current-date stock-price strategy-fn))
 
-(defun monthly-invest-advice (stock-position current-date stock-price strategy-fn)
-  "Start with 10K, and invest 2K each month. Only follow advice when deposit money"
-  (multiple-value-bind
-    (secs hour minute day month year)
-    (decode-universal-time current-date)
-    (declare (ignore secs hour minute month year))
-    (if (equal 1 day)
-      (progn
-        (incf (stock-position-cash stock-position) 2000)
-        (follow-advice stock-position current-date stock-price strategy-fn)))))
-
-(defun monthly-invest-rule (stock-position current-date stock-price strategy-fn)
-  "Start with 10K, and invest 2K each month. Follow % advice from rule when deposit money."
-  (multiple-value-bind
-    (secs hour minute day month year)
-    (decode-universal-time current-date)
-    (declare (ignore secs hour minute month year))
-    (if (equal 1 day)
-      (progn
-        (incf (stock-position-cash stock-position) 2000)
-        (perform-buy stock-position stock-price (min (stock-position-cash stock-position) (* (funcall strategy-fn stock-price) (stock-position-cash stock-position))))))))
-
 (defun quarterly-investment (stock-position current-date stock-price strategy-fn)
- "Start with 10K, and invest 6K each quarter."
+  "Start with 10K, and invest 6K each quarter."
   (multiple-value-bind
     (secs hour minute day month year)
     (decode-universal-time current-date)
     (declare (ignore secs hour minute year))
-    (if (or (and (equal 1 day) (equal 1 month))
-            (and (equal 1 day) (equal 4 month))
-            (and (equal 1 day) (equal 7 month))
-            (and (equal 1 day) (equal 10 month)))
+    (when (or (and (equal 1 day) (equal 1 month))
+              (and (equal 1 day) (equal 4 month))
+              (and (equal 1 day) (equal 7 month))
+              (and (equal 1 day) (equal 10 month)))
       (incf (stock-position-cash stock-position) 6000)))
   (follow-advice stock-position current-date stock-price strategy-fn))
 
 (defun yearly-investment (stock-position current-date stock-price strategy-fn)
- "Start with 10K, and invest 24K each year."
+  "Start with 10K, and invest 24K each year."
   (multiple-value-bind
     (secs hour minute day month year)
     (decode-universal-time current-date)
     (declare (ignore secs hour minute year))
-    (if (and (equal 1 day) (equal 1 month))
+    (when (and (equal 1 day) (equal 1 month))
       (incf (stock-position-cash stock-position) 24000)))
   (follow-advice stock-position current-date stock-price strategy-fn))
 

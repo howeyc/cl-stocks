@@ -22,14 +22,14 @@
 ;;; Moneypaper Invest%
 ;;; INVEST%: ((1 - ((Current Price - 52WeekLow) / ( 52WeekHigh - 52WeekLow))) + 0.5)
 (defun moneypaper-invest (stock-price)
-  (+ (/ 1 2) (- 1 (/ (- (stock-price-close stock-price) (stock-price-52wl stock-price)) (- (stock-price-52wh stock-price) (stock-price-52wl stock-price))))))
+  (values "Buy" (+ (/ 1 2) (- 1 (/ (- (stock-price-close stock-price) (stock-price-52wl stock-price)) (- (stock-price-52wh stock-price) (stock-price-52wl stock-price)))))))
 
 ;;; DRIP Investment Calculator (http://www.futuresforextrading.com/dripadvisor/calculator.htm)
 (defun drip-invest-calc (stock-price)
   (let* ((expected-growth-factor (/ 215 200))    ; Multiplication factor (eg 1.075) that is half of 15%
          (expected-price (* expected-growth-factor (stock-price-sma stock-price)))
          (valuation-deviation (/ (- (stock-price-close stock-price) expected-price) expected-price)))
-    (- 1 (* 3 valuation-deviation))))           ; According to the site the factor of 3 depends on the choice of 15% some how??
+    (values "Buy" (- 1 (* 3 valuation-deviation)))))          ; According to the site the factor of 3 depends on the choice of 15% some how??
 
 ;;; Twinvest (http://www.aim-users.com/twinvest.htm)
 (defun get-twinvest-fn ()
@@ -37,4 +37,4 @@
     (defun twinvest (stock-price)
       (if (zerop code)
         (setf code (* 2000 (/ 3 4) (stock-price-close stock-price))))
-      (/ code (stock-price-close stock-price) 2000))))
+      (values "Buy" (/ code (stock-price-close stock-price) 2000)))))
