@@ -16,9 +16,9 @@
                  :initarg :transactions
                  :initform nil)))
 
-(defun get-daily-interest-rate-accumulator (annual-rate)
+(defun get-daily-interest-rate (annual-rate)
   (let ((daily-rate (- (expt (+ 1 annual-rate) (/ 1 365)) 1)))
-    (lambda (stock-position) (incf (stock-position-cash stock-position) (floor (* (stock-position-cash stock-position) daily-rate))))))
+    (lambda (cash) (* cash daily-rate))))
 
 (defmethod print-object ((spos stock-position) stream)
  (format stream "Cash: ~A, Quantity: ~A ~%" (stock-position-cash spos) (stock-position-quantity spos)))

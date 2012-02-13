@@ -58,7 +58,7 @@
   (let ((dividend (pop dividends)) (split (pop splits)) (current-stock-price (pop stock-prices)) (final-price nil))
     (loop for date from (stock-price-date current-stock-price) by 86400
           while current-stock-price do
-          (funcall interest-fn stock-position)
+          (incf (stock-position-cash stock-position) (funcall interest-fn (stock-position-cash stock-position)))
           (when (and (not (null dividend)) (>= date (stock-div-date dividend)))
             (collect-div stock-position dividend)
             (setf dividend (pop dividends)))

@@ -3,7 +3,7 @@
 (in-package #:cl-stocks)
 
 (defun run-all-scenarios (ticker start end out-stream)
-  (let ((interest-fn (get-daily-interest-rate-accumulator (/ 1 100)))
+  (let ((interest-fn (get-daily-interest-rate (/ 1 100)))
         (scenario-result 0))
     (multiple-value-bind (stock-prices dividends splits)
       (get-stock-info ticker start end)
@@ -16,3 +16,12 @@
                   (setf scenario-result (run-scenario-with-result stock-prices dividends splits scenario-fn strategy-fn interest-fn))
                   (format out-stream "Scenario: ~21A Strategy: ~19A Result: ~10,2F~%" scenario-fn strategy-fn scenario-result))
             (format out-stream "~%")))))
+
+(defun run-portfolios (tickers start end out-stream)
+  (let ((interest-fn (get-daily-interest-rate (/ 1 100)))
+        (portfolio-result 0))
+    (loop for pick-fn in '(pick-max) do
+          (loop for strategy-fn in '(moneypaper-invest drip-invest-calc) do
+                (setf portfolio-result (run-a-portfolio tickers start end interest-fn strategy-fn pick-fn))
+                (format out-stream "Pick: ~21A Strategy: ~19A Result: ~10,2F~%" pick-fn strategy-fn portfolio-result))
+          (format out-stream "~%"))))
