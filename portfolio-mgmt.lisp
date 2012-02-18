@@ -43,8 +43,18 @@
       (decf (stock-position-cash position-to-modify) unused-cash))
     (+ cash-to-inject unused-cash)))
 
+(defun get-ticker-transactions (ticker current-stock-position)
+ (loop for trans in (stock-position-transactions current-stock-position)
+  collect (cons ticker trans)))
+
+(defun sort-ticker-transactions (ticker-trans-list)
+  (sort ticker-trans-list #'(lambda (x y)
+                              (if (and (= (transaction-date (cdr x)) (transaction-date (cdr y))) (string-equal "Sell" (transaction-type (cdr x))))
+                                t
+                                (< (transaction-date (cdr x)) (transaction-date (cdr y)))))))
+
 (defun run-a-portfolio (ticker-hash tickers start end interest-fn strategy-fn pick-fn)
-  (let ((cash 10000) (last-price-hash (make-hash-table :test 'equal)))
+  (let ((cash 10000) (last-price-hash (make-hash-table :test 'equal)) (transactions nil))
     (loop for date from (encode-universal-time 0 0 0 (second start) (first start) (third start) 0) to (encode-universal-time 0 0 0 (second end) (first end) (third end) 0) by 86400
           do
           (incf cash (funcall interest-fn cash))
@@ -70,7 +80,11 @@
             (if (not (null position-price-list))
               (setf cash (funcall pick-fn position-price-list strategy-fn cash)))))
     (dolist (ticker tickers)
-      (perform-sell (first (gethash ticker ticker-hash)) (gethash ticker last-price-hash) t (stock-position-quantity (first (gethash ticker ticker-hash))))
-      (incf cash (stock-position-cash (first (gethash ticker ticker-hash))))
-      (setf (stock-position-cash (first (gethash ticker ticker-hash))) 0))
-    cash))
+      (let ((current-stock-position (first (gethash ticker ticker-hash))))
+        (perform-sell current-stock-position (gethash ticker last-price-hash) t (stock-position-quantity current-stock-position))
+        (incf cash (stock-position-cash current-stock-position))
+        (setf (stock-position-cash current-stock-position) 0)
+        (setf transactions (append transactions (get-ticker-transactions ticker current-stock-position)))))
+    (values 
+     cash
+     (sort-ticker-transactions transactions))))

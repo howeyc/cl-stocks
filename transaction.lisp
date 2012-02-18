@@ -29,8 +29,8 @@
   (format stream "~A ~7A ~10,2F ~7D ~6,2F ~10,2F ~7D"
           (human-date (transaction-date tran))
           (transaction-type tran)
-          (/ (transaction-cash tran) 100000.0)
+          (transaction-cash tran)
           (transaction-quantity tran)
-          (/ (transaction-price tran) 100000.0)
-          (/ (transaction-accum-cash tran) 100000.0)
+          (transaction-price tran)
+          (transaction-accum-cash tran)
           (transaction-accum-quantity tran)))
