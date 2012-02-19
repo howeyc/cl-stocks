@@ -3,7 +3,6 @@
 (asdf:defsystem #:cl-stocks
   :serial t
   :depends-on (#:cl-csv
-               #:parse-number
                #:cl-yahoo-finance)
   :components ((:file "package")
                (:file "date")
