@@ -48,6 +48,22 @@
     (incf (stock-position-cash (car position-price)) (/ cash-to-inject (length position-price-list)))
     (follow-advice (car position-price) (stock-price-date (cdr position-price)) (cdr position-price) strategy-fn)))
 
+(defun pick-wavg (position-price-list strategy-fn cash-to-inject)
+  (let ((total 0))
+    (dolist (position-price position-price-list)
+      (multiple-value-bind
+        (advice-string advice-factor force)
+        (funcall strategy-fn (cdr position-price))
+        (when (string-equal "Buy" advice-string)
+          (incf total advice-factor))))
+    (dolist (position-price position-price-list 0)
+      (multiple-value-bind
+        (advice-string advice-factor force)
+        (funcall strategy-fn (cdr position-price))
+        (when (string-equal "Buy" advice-string)
+          (incf (stock-position-cash (car position-price)) (* cash-to-inject (/ advice-factor total)))))
+      (follow-advice (car position-price) (stock-price-date (cdr position-price)) (cdr position-price) strategy-fn))))
+
 (defun get-ticker-transactions (ticker current-stock-position)
  (loop for trans in (stock-position-transactions current-stock-position)
   collect (cons ticker trans)))

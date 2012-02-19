@@ -21,8 +21,8 @@
   (let ((interest-fn (get-daily-interest-rate (/ 1 100)))
         (ticker-hash (get-ticker-hash tickers start end))
         (portfolio-result 0))
-    (loop for pick-fn in '(pick-max pick-avg) do
-          (loop for strategy-fn in '(thirty-percent-rule moneypaper-invest drip-invest-calc) do
+    (loop for pick-fn in '(pick-max pick-avg pick-wavg) do
+          (loop for strategy-fn in '(moneypaper-invest drip-invest-calc) do
                 (multiple-value-bind (portfolio-result transactions)
                   (run-a-portfolio ticker-hash tickers start end interest-fn strategy-fn pick-fn)
                   (format out-stream "Pick: ~21A Strategy: ~19A Result: ~10,2F~%" pick-fn strategy-fn portfolio-result)))
