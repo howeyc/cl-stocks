@@ -10,7 +10,7 @@
 
 (defun portfolio-tests ()
   (format t "~%Portfolio Test:~%")
-  (cl-stocks:run-portfolios '(K GE) '(1 1 1990) '(1 1 2012) file))
+  (cl-stocks:run-portfolios '(K GE) '(1 1 1990) '(1 1 2012) t))
 
 (defun reload-tests ()
  (load "testing.lisp"))

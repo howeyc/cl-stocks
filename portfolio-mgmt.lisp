@@ -43,6 +43,11 @@
       (decf (stock-position-cash position-to-modify) unused-cash))
     (+ cash-to-inject unused-cash)))
 
+(defun pick-avg (position-price-list strategy-fn cash-to-inject)
+  (dolist (position-price position-price-list 0)
+    (incf (stock-position-cash (car position-price)) (/ cash-to-inject (length position-price-list)))
+    (follow-advice (car position-price) (stock-price-date (cdr position-price)) (cdr position-price) strategy-fn)))
+
 (defun get-ticker-transactions (ticker current-stock-position)
  (loop for trans in (stock-position-transactions current-stock-position)
   collect (cons ticker trans)))
