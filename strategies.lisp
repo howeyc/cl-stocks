@@ -19,6 +19,11 @@
           ((>= (stock-price-close stock-price) top-thirty) (values "Sell" 1))
           (t (values "Hold" 0)))))
 
+(defun sma-rule (stock-price)
+  (cond ((> (stock-price-close stock-price) (stock-price-sma stock-price)) (values "Sell" 1))
+        ((< (stock-price-close stock-price) (stock-price-sma stock-price)) (values "Buy" 1))
+        (t (values "Hold" 0))))
+
 ;;; Moneypaper Invest%
 ;;; INVEST%: ((1 - ((Current Price - 52WeekLow) / ( 52WeekHigh - 52WeekLow))) + 0.5)
 (defun moneypaper-invest (stock-price)

@@ -12,9 +12,10 @@
             (format out-stream "Scenario: ~21A Strategy: ~19A Result: ~10,2F~%" scenario-fn nil scenario-result))
       (format out-stream "~%")
       (loop for scenario-fn in '(start-investment monthly-investment quarterly-investment yearly-investment) do 
-            (loop for strategy-fn in (append '(in-the-bank buy-when-possible thirty-percent-rule moneypaper-invest drip-invest-calc) (list (get-twinvest-fn))) do
-                  (setf scenario-result (run-scenario-with-result stock-prices dividends splits scenario-fn strategy-fn interest-fn))
-                  (format out-stream "Scenario: ~21A Strategy: ~19A Result: ~10,2F~%" scenario-fn strategy-fn scenario-result))
+            (loop for strategy-fn in (append '(in-the-bank buy-when-possible thirty-percent-rule sma-rule moneypaper-invest drip-invest-calc) (list (get-twinvest-fn))) do
+                  (multiple-value-bind (scenario-result transactions)
+                    (run-scenario-with-result stock-prices dividends splits scenario-fn strategy-fn interest-fn)
+                    (format out-stream "Scenario: ~21A Strategy: ~19A Result: ~10,2F~%" scenario-fn strategy-fn scenario-result)))
             (format out-stream "~%")))))
 
 (defun run-portfolios (tickers start end out-stream)

@@ -72,9 +72,11 @@
     (perform-sell stock-position final-price t (stock-position-quantity stock-position))))
 
 (defun run-scenario-with-result (stock-prices dividends splits scenario-fn strategy-fn interest-fn)
- (let ((spos (make-instance 'stock-position)))
-  (run-scenario spos stock-prices dividends splits scenario-fn strategy-fn interest-fn)
-  (stock-position-cash spos)))
+  (let ((spos (make-instance 'stock-position)))
+    (run-scenario spos stock-prices dividends splits scenario-fn strategy-fn interest-fn)
+    (values 
+      (stock-position-cash spos)
+      (stock-position-transactions spos))))
 
 ;;; Scenarios
 (defun start-investment (stock-position current-date stock-price strategy-fn)
