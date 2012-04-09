@@ -2,8 +2,7 @@
 
 (asdf:defsystem #:cl-stocks
   :serial t
-  :depends-on (#:cl-csv
-               #:cl-yahoo-finance)
+  :depends-on (#:cl-yahoo-finance)
   :components ((:file "package")
                (:file "date")
                (:file "sma")

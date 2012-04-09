@@ -4,7 +4,7 @@
 
 (defun get-stock-prices (ticker start end)
   (let* ((result nil)
-         (yahoo-data (cl-yahoo-finance:read-historical-data ticker start end "daily"))
+         (yahoo-data (cl-yahoo-finance:read-historical-data ticker start end :historical-type :daily))
          (current-stock-price (make-instance 'stock-price))
          (date-col (position "Date" (first yahoo-data) :test #'string-equal))
          (open-col (position "Open" (first yahoo-data) :test #'string-equal))
@@ -20,7 +20,7 @@
 
 (defun get-stock-divs (ticker start end)
   (let* ((result nil)
-         (yahoo-data (cl-yahoo-finance:read-historical-data ticker start end "dividends_only"))
+         (yahoo-data (cl-yahoo-finance:read-historical-data ticker start end :historical-type :dividends_only))
          (date-col (position "Date" (first yahoo-data) :test #'string-equal))
          (div-col (position "Dividends" (first yahoo-data) :test #'string-equal))
          (current-stock-div (make-instance 'stock-div)))
