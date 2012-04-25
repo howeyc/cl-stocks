@@ -27,6 +27,21 @@
     (values "Buy" 1))
    (values "Hold" 0))))
 
+(defun get-crazy-market-fn (percent)
+ "When there is a pull back from the high of more than %, BUY
+ If we have a position, and we can make %, SELL"
+ (let ((stock-pos :OUT) (last-max 0) (last-buy 0))
+  (defun crazy-market (stock-price)
+   (when (> (stock-price-close stock-price) last-max)
+    (setf last-max (stock-price-close stock-price)))
+   (cond ((and (eq stock-pos :OUT) (< (stock-price-close stock-price) (* (/ (- 100 percent) 100) last-max)))
+          (setf last-buy (stock-price-close stock-price) stock-pos :IN)
+          (values "Buy" 1))
+         ((and (eq stock-pos :IN) (> (stock-price-close stock-price) (* (/ (+ 100 percent) 100) last-buy)))
+          (setf last-max (stock-price-close stock-price) stock-pos :OUT)
+          (values "Sell" 1))
+         (t (values "Hold" 0))))))
+
 ;;; Moneypaper Invest%
 ;;; INVEST%: ((1 - ((Current Price - 52WeekLow) / ( 52WeekHigh - 52WeekLow))) + 0.5)
 (defun moneypaper-invest (stock-price)
