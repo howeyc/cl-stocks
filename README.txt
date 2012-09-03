@@ -18,6 +18,12 @@ Buy And Sell (All or None)
                           When a stock goes above the 60% mark of the range
                           between it's 52-week high and 52-week low, SELL.
                           Only sell at a price higher than purchase price.
+* Dividends-Dont-Lie    : When yield for current year is above 90% of the
+                          high yield of the previous year, SELL.
+                          When yield for current year is below 110% of the
+                          low yeild of the previous year, BUY.
+                          * Should probably be using last decade average,
+                            not last year's values.
 
 Purchasing Dollar Cost Averaging Strategies
 * Moneypaper-Invest     : Invest% formula from Moneypaper (52 week high/low).
