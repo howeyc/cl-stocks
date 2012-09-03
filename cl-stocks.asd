@@ -2,7 +2,9 @@
 
 (asdf:defsystem #:cl-stocks
   :serial t
-  :depends-on (#:cl-yahoo-finance)
+  :depends-on (#:cl-yahoo-finance
+               #:group-by
+               #:cl-utilities)
   :components ((:file "package")
                (:file "date")
                (:file "sma")
@@ -11,6 +13,7 @@
                (:file "stock-price")
                (:file "parse-fns")
                (:file "get-stock-info")
+               (:file "stock-yield")
                (:file "strategies")
                (:file "scenarios")
                (:file "portfolio-mgmt")
